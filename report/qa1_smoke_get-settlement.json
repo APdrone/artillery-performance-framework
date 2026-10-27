@@ -1,0 +1,399 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.Calculate and Authorize Debt Settlement Offer": 10,
+      "vusers.created": 10,
+      "http.requests": 10,
+      "http.codes.200": 10,
+      "http.responses": 10,
+      "http.downloaded_bytes": 3104,
+      "plugins.metrics-by-endpoint./api/v1/get-settlement.codes.200": 10,
+      "vusers.failed": 0,
+      "vusers.completed": 10
+    },
+    "rates": {
+      "http.request_rate": 3
+    },
+    "firstCounterAt": 1793076126950,
+    "firstHistogramAt": 1793076127010,
+    "lastCounterAt": 1793076131051,
+    "lastHistogramAt": 1793076131051,
+    "firstMetricAt": 1793076126950,
+    "lastMetricAt": 1793076131051,
+    "period": 1793076130000,
+    "summaries": {
+      "http.response_time": {
+        "min": 19,
+        "max": 30,
+        "count": 10,
+        "mean": 24.1,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 25.8,
+        "p90": 26.8,
+        "p95": 26.8,
+        "p99": 26.8,
+        "p999": 26.8
+      },
+      "http.response_time.2xx": {
+        "min": 19,
+        "max": 30,
+        "count": 10,
+        "mean": 24.1,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 25.8,
+        "p90": 26.8,
+        "p95": 26.8,
+        "p99": 26.8,
+        "p999": 26.8
+      },
+      "plugins.metrics-by-endpoint.response_time./api/v1/get-settlement": {
+        "min": 19,
+        "max": 30,
+        "count": 10,
+        "mean": 24.1,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 25.8,
+        "p90": 26.8,
+        "p95": 26.8,
+        "p99": 26.8,
+        "p999": 26.8
+      },
+      "vusers.session_length": {
+        "min": 24.5,
+        "max": 62.9,
+        "count": 10,
+        "mean": 37.4,
+        "p50": 32.8,
+        "median": 32.8,
+        "p75": 35.5,
+        "p90": 61,
+        "p95": 61,
+        "p99": 61,
+        "p999": 61
+      }
+    },
+    "histograms": {
+      "http.response_time": {
+        "min": 19,
+        "max": 30,
+        "count": 10,
+        "mean": 24.1,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 25.8,
+        "p90": 26.8,
+        "p95": 26.8,
+        "p99": 26.8,
+        "p999": 26.8
+      },
+      "http.response_time.2xx": {
+        "min": 19,
+        "max": 30,
+        "count": 10,
+        "mean": 24.1,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 25.8,
+        "p90": 26.8,
+        "p95": 26.8,
+        "p99": 26.8,
+        "p999": 26.8
+      },
+      "plugins.metrics-by-endpoint.response_time./api/v1/get-settlement": {
+        "min": 19,
+        "max": 30,
+        "count": 10,
+        "mean": 24.1,
+        "p50": 22.9,
+        "median": 22.9,
+        "p75": 25.8,
+        "p90": 26.8,
+        "p95": 26.8,
+        "p99": 26.8,
+        "p999": 26.8
+      },
+      "vusers.session_length": {
+        "min": 24.5,
+        "max": 62.9,
+        "count": 10,
+        "mean": 37.4,
+        "p50": 32.8,
+        "median": 32.8,
+        "p75": 35.5,
+        "p90": 61,
+        "p95": 61,
+        "p99": 61,
+        "p999": 61
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.Calculate and Authorize Debt Settlement Offer": 7,
+        "vusers.created": 7,
+        "http.requests": 7,
+        "http.codes.200": 7,
+        "http.responses": 7,
+        "http.downloaded_bytes": 2176,
+        "plugins.metrics-by-endpoint./api/v1/get-settlement.codes.200": 7,
+        "vusers.failed": 0,
+        "vusers.completed": 7
+      },
+      "rates": {
+        "http.request_rate": 3
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1793076126950,
+      "firstHistogramAt": 1793076127010,
+      "lastCounterAt": 1793076129978,
+      "lastHistogramAt": 1793076129978,
+      "firstMetricAt": 1793076126950,
+      "lastMetricAt": 1793076129978,
+      "period": "1793076120000",
+      "summaries": {
+        "http.response_time": {
+          "min": 21,
+          "max": 27,
+          "count": 7,
+          "mean": 24.3,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        },
+        "http.response_time.2xx": {
+          "min": 21,
+          "max": 27,
+          "count": 7,
+          "mean": 24.3,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        },
+        "plugins.metrics-by-endpoint.response_time./api/v1/get-settlement": {
+          "min": 21,
+          "max": 27,
+          "count": 7,
+          "mean": 24.3,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        },
+        "vusers.session_length": {
+          "min": 29.5,
+          "max": 62.9,
+          "count": 7,
+          "mean": 41.1,
+          "p50": 34.1,
+          "median": 34.1,
+          "p75": 35.5,
+          "p90": 61,
+          "p95": 61,
+          "p99": 61,
+          "p999": 61
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 21,
+          "max": 27,
+          "count": 7,
+          "mean": 24.3,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        },
+        "http.response_time.2xx": {
+          "min": 21,
+          "max": 27,
+          "count": 7,
+          "mean": 24.3,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        },
+        "plugins.metrics-by-endpoint.response_time./api/v1/get-settlement": {
+          "min": 21,
+          "max": 27,
+          "count": 7,
+          "mean": 24.3,
+          "p50": 23.8,
+          "median": 23.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        },
+        "vusers.session_length": {
+          "min": 29.5,
+          "max": 62.9,
+          "count": 7,
+          "mean": 41.1,
+          "p50": 34.1,
+          "median": 34.1,
+          "p75": 35.5,
+          "p90": 61,
+          "p95": 61,
+          "p99": 61,
+          "p999": 61
+        }
+      }
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Calculate and Authorize Debt Settlement Offer": 3,
+        "vusers.created": 3,
+        "http.requests": 3,
+        "http.codes.200": 3,
+        "http.responses": 3,
+        "http.downloaded_bytes": 928,
+        "plugins.metrics-by-endpoint./api/v1/get-settlement.codes.200": 3,
+        "vusers.failed": 0,
+        "vusers.completed": 3
+      },
+      "rates": {
+        "http.request_rate": 3
+      },
+      "http.request_rate": null,
+      "firstCounterAt": 1793076130014,
+      "firstHistogramAt": 1793076130039,
+      "lastCounterAt": 1793076131051,
+      "lastHistogramAt": 1793076131051,
+      "firstMetricAt": 1793076130014,
+      "lastMetricAt": 1793076131051,
+      "period": "1793076130000",
+      "summaries": {
+        "http.response_time": {
+          "min": 19,
+          "max": 30,
+          "count": 3,
+          "mean": 23.7,
+          "p50": 22,
+          "median": 22,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "http.response_time.2xx": {
+          "min": 19,
+          "max": 30,
+          "count": 3,
+          "mean": 23.7,
+          "p50": 22,
+          "median": 22,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "plugins.metrics-by-endpoint.response_time./api/v1/get-settlement": {
+          "min": 19,
+          "max": 30,
+          "count": 3,
+          "mean": 23.7,
+          "p50": 22,
+          "median": 22,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "vusers.session_length": {
+          "min": 24.5,
+          "max": 35.6,
+          "count": 3,
+          "mean": 28.7,
+          "p50": 25.8,
+          "median": 25.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        }
+      },
+      "histograms": {
+        "http.response_time": {
+          "min": 19,
+          "max": 30,
+          "count": 3,
+          "mean": 23.7,
+          "p50": 22,
+          "median": 22,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "http.response_time.2xx": {
+          "min": 19,
+          "max": 30,
+          "count": 3,
+          "mean": 23.7,
+          "p50": 22,
+          "median": 22,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "plugins.metrics-by-endpoint.response_time./api/v1/get-settlement": {
+          "min": 19,
+          "max": 30,
+          "count": 3,
+          "mean": 23.7,
+          "p50": 22,
+          "median": 22,
+          "p75": 22,
+          "p90": 22,
+          "p95": 22,
+          "p99": 22,
+          "p999": 22
+        },
+        "vusers.session_length": {
+          "min": 24.5,
+          "max": 35.6,
+          "count": 3,
+          "mean": 28.7,
+          "p50": 25.8,
+          "median": 25.8,
+          "p75": 25.8,
+          "p90": 25.8,
+          "p95": 25.8,
+          "p99": 25.8,
+          "p999": 25.8
+        }
+      }
+    }
+  ]
+}

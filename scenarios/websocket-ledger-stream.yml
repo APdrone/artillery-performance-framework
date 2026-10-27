@@ -1,0 +1,12 @@
+# ==============================================================================
+# Real-Time Financial Ledger WebSocket Stream Suite
+# Benchmarks connection concurrency, message latency, and keep-alive stability
+# ==============================================================================
+scenarios:
+  - name: "Live Financial Transaction Stream via WebSockets"
+    engine: ws
+    flow:
+      - connect: "{{ target }}/ws/transactions"
+      - think: 2
+      - send: '{"type":"PING","timestamp":"{{ $uuid }}"}'
+      - think: 2

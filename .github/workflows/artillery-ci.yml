@@ -1,0 +1,86 @@
+name: FinTech Artillery Performance & Resilience CI/CD Gate
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Nightly performance regression soak gate at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target Environment'
+        required: true
+        default: 'qa1'
+        type: choice
+        options:
+          - dev1
+          - qa1
+          - uat
+      testType:
+        description: 'Performance Test Profile'
+        required: true
+        default: 'smoke'
+        type: choice
+        options:
+          - smoke
+          - load
+          - stress
+
+jobs:
+  performance-validation:
+    name: Execute FinTech Load Curves & SLA Quality Gates
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Start FinTech Banking Mock Gateway
+        run: |
+          node support/mock-server.js &
+          sleep 3
+          curl -f http://localhost:8088/healthz || exit 1
+
+      - name: Run Core FinTech Smoke Suite & Quality Gates
+        run: |
+          npm run test:smoke
+
+      - name: Run High-Concurrency Load Curve (QA1 Environment)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.testType == 'load'
+        run: |
+          npx artillery run -e load --output ./report/ci_load_settlement.json --config ./config/qa1/get-settlement.yml ./scenarios/get-settlement.yml
+          npx artillery report ./report/ci_load_settlement.json --output ./report/ci_load_settlement.html
+
+      - name: Compile HTML Performance Dashboards
+        if: always()
+        run: |
+          node scripts/generate-reports.js || true
+
+      - name: Upload Artillery Performance HTML Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: artillery-performance-reports
+          path: ./report/*.html
+          retention-days: 14
+
+      - name: Upload Raw JSON Telemetry Data
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: artillery-telemetry-json
+          path: ./report/*.json
+          retention-days: 14

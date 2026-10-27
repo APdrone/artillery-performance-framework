@@ -1,0 +1,33 @@
+
+before:
+    name: "Get Auth Token and call account activation"
+    flow:
+      - post:
+          name: "Get Auth Token"
+          url: "{{ kc_url }}/auth/realms/master/protocol/openid-connect/token"
+          headers:
+            Accept: "*/*"
+            Content-Type: "application/x-www-form-urlencoded"
+          form:
+            grant_type: "{{ grant_type }}"
+            client_id: "{{ client_id }}"
+            username: "{{ username }}"
+            password: "{{ password }}"
+          afterResponse: "printStatus"
+          expect:
+            - statusCode: 200
+          capture:
+            - json: "$.access_token"
+              as: "accessToken"
+scenarios:  
+      - name: "GET /v0/accounts/activation-disclosure/conversationId/last4SSN"
+        flow:
+        - get:
+            url: "/v0/accounts/activation-disclosure/conversationId/{{ conversationId }}/{{ last4SSN }}"
+            headers:
+              Accept: "*/*"
+              Content-Type: "application/json"
+              Authorization: "Bearer {{ accessToken }}"
+            afterResponse: "printStatus"
+            expect:
+              - statusCode: 200

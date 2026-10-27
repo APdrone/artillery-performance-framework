@@ -1,0 +1,117 @@
+{
+  "aggregate": {
+    "counters": {
+      "vusers.created_by_name.Live Financial Transaction Stream via WebSockets": 10,
+      "vusers.created": 10,
+      "websocket.messages_sent": 10,
+      "vusers.failed": 0,
+      "vusers.completed": 10
+    },
+    "rates": {
+      "websocket.send_rate": 2
+    },
+    "firstCounterAt": 1793076138605,
+    "firstHistogramAt": 1793076142654,
+    "lastCounterAt": 1793076146687,
+    "lastHistogramAt": 1793076146687,
+    "firstMetricAt": 1793076138605,
+    "lastMetricAt": 1793076146687,
+    "period": 1793076140000,
+    "summaries": {
+      "vusers.session_length": {
+        "min": 4014.1,
+        "max": 4048.6,
+        "count": 10,
+        "mean": 4026,
+        "p50": 3984.7,
+        "median": 3984.7,
+        "p75": 4065.2,
+        "p90": 4065.2,
+        "p95": 4065.2,
+        "p99": 4065.2,
+        "p999": 4065.2
+      }
+    },
+    "histograms": {
+      "vusers.session_length": {
+        "min": 4014.1,
+        "max": 4048.6,
+        "count": 10,
+        "mean": 4026,
+        "p50": 3984.7,
+        "median": 3984.7,
+        "p75": 4065.2,
+        "p90": 4065.2,
+        "p95": 4065.2,
+        "p99": 4065.2,
+        "p999": 4065.2
+      }
+    }
+  },
+  "intermediate": [
+    {
+      "counters": {
+        "vusers.created_by_name.Live Financial Transaction Stream via WebSockets": 4,
+        "vusers.created": 4
+      },
+      "rates": {},
+      "firstCounterAt": 1793076138605,
+      "lastCounterAt": 1793076139676,
+      "firstMetricAt": 1793076138605,
+      "lastMetricAt": 1793076139676,
+      "period": "1793076130000",
+      "summaries": {},
+      "histograms": {}
+    },
+    {
+      "counters": {
+        "vusers.created_by_name.Live Financial Transaction Stream via WebSockets": 6,
+        "vusers.created": 6,
+        "websocket.messages_sent": 10,
+        "vusers.failed": 0,
+        "vusers.completed": 10
+      },
+      "rates": {
+        "websocket.send_rate": 2
+      },
+      "websocket.send_rate": null,
+      "firstCounterAt": 1793076140603,
+      "firstHistogramAt": 1793076142654,
+      "lastCounterAt": 1793076146687,
+      "lastHistogramAt": 1793076146687,
+      "firstMetricAt": 1793076140603,
+      "lastMetricAt": 1793076146687,
+      "period": "1793076140000",
+      "summaries": {
+        "vusers.session_length": {
+          "min": 4014.1,
+          "max": 4048.6,
+          "count": 10,
+          "mean": 4026,
+          "p50": 3984.7,
+          "median": 3984.7,
+          "p75": 4065.2,
+          "p90": 4065.2,
+          "p95": 4065.2,
+          "p99": 4065.2,
+          "p999": 4065.2
+        }
+      },
+      "histograms": {
+        "vusers.session_length": {
+          "min": 4014.1,
+          "max": 4048.6,
+          "count": 10,
+          "mean": 4026,
+          "p50": 3984.7,
+          "median": 3984.7,
+          "p75": 4065.2,
+          "p90": 4065.2,
+          "p95": 4065.2,
+          "p99": 4065.2,
+          "p999": 4065.2
+        }
+      }
+    }
+  ]
+}

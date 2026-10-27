@@ -1,0 +1,15 @@
+{
+  "yaml.schemas": {
+    "file:///c%3A/Users/amanp/.vscode/extensions/continue.continue-1.2.2-win32-x64/config-yaml-schema.json": [
+      ".continue/**/*.yaml"
+    ],
+    "https://www.artillery.io/schema.json": [
+      "file:///d%3A/FrondEnd/Testing/framework/artillery-e2e/asciiart-load-test.yml",
+      "file:///d%3A/FrondEnd/Testing/framework/artillery-e2e/config/dev1/test.yml",
+      "file:///d%3A/FrondEnd/Testing/framework/artillery-e2e/config/dev1/example1.yml",
+      "file:///d%3A/FrondEnd/Testing/framework/artillery-e2e/config/dev1/example2.yml",
+      "file:///d%3A/FrondEnd/Testing/framework/artillery-e2e/config/dev1/example3.yml",
+      "file:///d%3A/FrondEnd/Testing/framework/artillery-e2e/config/dev1/asciiart-load-test.yml"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+config:
+  target: "https://apigw-global-accounts.dev1.gskydev.com/accounts"
+  processor: "../support/helper.js"
+  variables:
+    kc_url: "https://auth.dev1.gskydev.com"
+    grant_type: "password"
+    client_id: "ServicesClientInternal"
+    username: "testFastTrackE2E"
+    password: "Passwordø1!"
+  environments:
+    smoke:
+      phases:
+        - duration: 5
+          arrivalRate: 1
+          maxVusers: 6
+          name: "smoke test to check suit"
+    load:
+      phases:
+        - duration: 60
+          arrivalRate: 1
+          maxVusers: 6
+          name: "1x prod trafic"
+
+payload:
+  path: "../../data/dev1/accounts-activation-disclosure-conversationId-last4ssn.csv"
+  fields:
+    - "conversationId"
+    - "last4SSN"
+  skipHeader: true
+
+scenarios:
+  - name: "example-account-activation"
+    flow:
+      # Example: GET root (you'll likely replace this with the real calls)
+      - get:
+          url: "/"
+      # Example: POST using payload variables (uncomment / adapt if required)
+      # - post:
+      #     url: "/activate"
+      #     json:
+      #       conversationId: "{{ conversationId }}"
+      #       last4SSN: "{{ last4SSN }}"

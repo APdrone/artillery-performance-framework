@@ -1,0 +1,68 @@
+# scenario-only file: create-and-delete-settlement.yml
+# Assumes global config (target, processor, variables, payload, etc.) is defined elsewhere.
+
+before:
+  # Get token once before scenarios start (minimizes noise in per-request metrics)
+  flow:
+    - post:
+        name: "Get Auth Token"
+        url: "{{ kc_url }}/auth/realms/master/protocol/openid-connect/token"
+        headers:
+          Accept: "*/*"
+          Content-Type: "application/x-www-form-urlencoded"
+        form:
+          grant_type: "{{ grant_type }}"
+          client_id: "{{ client_id }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+        expect:
+          - statusCode: 200
+        capture:
+          - json: "$.access_token"
+            as: "accessToken"
+        afterResponse: "printStatus"
+
+scenarios:
+  - name: "Per-iteration create-then-delete settlement (measuring DELETE)"
+    flow:
+      # 1) Create settlement (POST) — name it clearly so POST metrics are separate
+      - post:
+          name: "POST /v0/accounts/settlements"
+          url: "/v0/accounts/settlements"
+          headers:
+            Accept: "*/*"
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ accessToken }}"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            type: "LUMP_SUM"
+            approvingManager:
+              title: "{{ title }}"
+              name: "{{ name }}"
+            currentBalance: "{{ currentBalance }}"
+            settlementAmount: "{{ settlementAmount }}"
+            settlementPercentage: "{{ settlementPercentage }}"
+            matchPayAmount: "{{ matchPayAmount }}"
+            settlementDate: "{{ date }}"
+            paymentDate: "{{ date }}"
+            customerRepresentative: "APPLICANT"
+            customerRepresentativeName: "{{ customerRepresentativeName }}"
+          expect:
+            - statusCode: 200
+          capture:
+            - json: "$.id"
+              as: "settlementId"
+          afterResponse: "printStatus"
+          beforeRequest: "setRequestParams"
+
+      # 2) Delete that settlement — this is the call we want accurate metrics for
+      - delete:
+          name: "DELETE /v0/accounts/{{creditCardUid}}/settlements/{{settlementId}}"
+          url: "/v0/accounts/{{ creditCardUid }}/settlements/{{ settlementId }}"
+          headers:
+            Accept: "*/*"
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ accessToken }}"
+          expect:
+            - statusCode: 200
+          afterResponse: "printStatus"

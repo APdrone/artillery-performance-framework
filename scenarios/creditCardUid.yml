@@ -1,0 +1,11 @@
+# FinTech Banking Scenarios: Credit Card UID Inquiry & State Validation
+scenarios:
+  - name: "Fetch Card Details by Generated UID"
+    flow:
+      - function: "setRequestParams"
+      - get:
+          url: "/api/v1/credit-card/{{ creditCardUid }}"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          afterResponse: "printStatus"

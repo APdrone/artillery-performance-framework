@@ -1,0 +1,58 @@
+# ==============================================================================
+# Financial Transaction Idempotency & Deduplication Suite
+# Validates that duplicate network retries do not duplicate ledger charges
+# ==============================================================================
+scenarios:
+  - name: "Idempotency Key Deduplication & Network Replay Resilience"
+    flow:
+      - function: "setRequestParams"
+
+      # Step 1: Authenticate
+      - post:
+          url: "/api/v1/auth/token"
+          headers:
+            Content-Type: "application/json"
+          json:
+            clientId: "idempotency_runner"
+          capture:
+            - json: "$.accessToken"
+              as: "authToken"
+
+      # Step 2: Primary Financial Mutation with Idempotency Key
+      - post:
+          url: "/api/v1/get-settlement"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+            Idempotency-Key: "tx-idem-{{ idempotencyKey }}"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            title: "{{ title }}"
+            name: "{{ name }}"
+            settlementType: "LUMP_SUM"
+            currentBalance: "{{ currentBalance }}"
+            settlementAmount: "{{ settlementAmount }}"
+            settlementPercentage: "{{ settlementPercentage }}"
+            settlementDate: "{{ date }}"
+          capture:
+            - json: "$.settlementId"
+              as: "originalSettlementId"
+          afterResponse: "printStatus"
+
+      # Step 3: Immediate Network Replay with Identical Idempotency Key
+      - post:
+          url: "/api/v1/get-settlement"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+            Idempotency-Key: "tx-idem-{{ idempotencyKey }}"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            title: "{{ title }}"
+            name: "{{ name }}"
+            settlementType: "LUMP_SUM"
+            currentBalance: "{{ currentBalance }}"
+            settlementAmount: "{{ settlementAmount }}"
+            settlementPercentage: "{{ settlementPercentage }}"
+            settlementDate: "{{ date }}"
+          afterResponse: "printStatus"

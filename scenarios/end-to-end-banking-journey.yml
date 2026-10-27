@@ -1,0 +1,112 @@
+# ==============================================================================
+# Complete End-to-End Enterprise FinTech Banking User Journey
+# Simulates full customer session: OAuth2 Auth -> Profile -> Card -> Ledger -> Settlement -> Closure
+# ==============================================================================
+scenarios:
+  - name: "E2E Authenticated Banking & Debt Settlement Lifecycle"
+    flow:
+      # Step 0: Initialize dynamic session variables and settlement numbers
+      - function: "setRequestParams"
+
+      # Step 1: OAuth2 Client Authentication
+      - post:
+          url: "/api/v1/auth/token"
+          headers:
+            Content-Type: "application/json"
+          json:
+            clientId: "fintech_client_{{ $uuid }}"
+            clientSecret: "sec_prod_live_{{ $uuid }}"
+            grantType: "client_credentials"
+          capture:
+            - json: "$.accessToken"
+              as: "authToken"
+          afterResponse: "printStatus"
+
+      - think: 1
+
+      # Step 2: Query Customer Profiles with Bearer JWT
+      - get:
+          url: "/api/v1/profiles"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+          capture:
+            - json: "$.data[0].id"
+              as: "primaryProfileId"
+          afterResponse: "printStatus"
+
+      - think: 1
+
+      # Step 3: Fetch Credit Card Account State & ETag Version
+      - get:
+          url: "/api/v1/credit-card/{{ creditCardUid }}"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+          capture:
+            - header: "etag"
+              as: "cardEtag"
+            - json: "$.account.currentBalance"
+              as: "liveBalance"
+          afterResponse: "printStatus"
+
+      - think: 1
+
+      # Step 4: Query High-Throughput Ledger Transactions
+      - get:
+          url: "/api/v1/transactions-total"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+          afterResponse: "printStatus"
+
+      # Step 5: Underwrite & Execute Debt Settlement with Idempotency Key
+      - post:
+          url: "/api/v1/get-settlement"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+            Idempotency-Key: "{{ idempotencyKey }}"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            title: "{{ title }}"
+            name: "{{ name }}"
+            settlementType: "{{ settlementType }}"
+            currentBalance: "{{ liveBalance }}"
+            settlementAmount: "{{ settlementAmount }}"
+            settlementPercentage: "{{ settlementPercentage }}"
+            matchPayAmount: "{{ matchPayAmount }}"
+            settlementDate: "{{ date }}"
+          capture:
+            - json: "$.settlementId"
+              as: "activeSettlementId"
+          afterResponse: "printStatus"
+
+      - think: 1
+
+      # Step 6: Dispatch Pay-off Demand Letter
+      - post:
+          url: "/api/v1/pay-off-letter"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+            Idempotency-Key: "ltr-idem-{{ $uuid }}"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            title: "{{ title }}"
+            settlementAmount: "{{ settlementAmount }}"
+            letterDate: "{{ date }}"
+          afterResponse: "printStatus"
+
+      # Step 7: Verify Account Closure Eligibility with Optimistic Lock ETag
+      - post:
+          url: "/api/v1/close-eligibility"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+            If-Match: "{{ cardEtag }}"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            requester: "{{ customerRepresentativeName }}"
+            evaluationDate: "{{ date }}"
+          afterResponse: "printStatus"

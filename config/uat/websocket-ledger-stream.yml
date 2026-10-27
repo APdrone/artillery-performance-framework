@@ -1,0 +1,60 @@
+# ==============================================================================
+# Artillery Configuration: websocket-ledger-stream [UAT Pre-Release Cluster]
+# Multi-Phase Load Curve & Automated SLA Quality Gating
+# ==============================================================================
+config:
+  target: "ws://localhost:8088"
+  processor: "../../support/helper.js"
+
+  ensure:
+    p95: 350
+    p99: 650
+    maxErrorRate: 0.01
+
+  environments:
+    smoke:
+      target: "ws://localhost:8088"
+      phases:
+        - duration: 5
+          arrivalRate: 2
+          name: "Smoke Verification (Low Concurrency)"
+      ensure:
+        p95: 350
+        p99: 650
+        maxErrorRate: 0.01
+
+    load:
+      target: "ws://localhost:8088"
+      phases:
+        - duration: 15
+          arrivalRate: 5
+          name: "Phase 1: Warm-up"
+        - duration: 30
+          arrivalRate: 15
+          rampTo: 50
+          name: "Phase 2: Linear Ramp-up"
+        - duration: 45
+          arrivalRate: 50
+          name: "Phase 3: Sustained Peak Concurrency"
+      ensure:
+        p95: 400
+        p99: 750
+        maxErrorRate: 0.02
+
+    stress:
+      target: "ws://localhost:8088"
+      phases:
+        - duration: 10
+          arrivalRate: 10
+          name: "Phase 1: Traffic Baseline"
+        - duration: 30
+          arrivalRate: 50
+          rampTo: 200
+          name: "Phase 2: Steep Spike Surge"
+        - duration: 20
+          arrivalRate: 200
+          name: "Phase 3: Saturation Threshold"
+      ensure:
+        p95: 600
+        p99: 1200
+        maxErrorRate: 0.05

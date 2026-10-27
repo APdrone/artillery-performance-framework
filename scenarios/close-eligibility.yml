@@ -1,0 +1,15 @@
+# FinTech Banking Scenarios: Account Closure Pre-requisite & Eligibility Check
+scenarios:
+  - name: "Evaluate Account Closure Eligibility"
+    flow:
+      - function: "setRequestParams"
+      - post:
+          url: "/api/v1/close-eligibility"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            requester: "{{ customerRepresentativeName }}"
+            evaluationDate: "{{ date }}"
+          afterResponse: "printStatus"

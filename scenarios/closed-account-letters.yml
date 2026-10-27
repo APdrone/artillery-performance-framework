@@ -1,0 +1,16 @@
+# FinTech Banking Scenarios: Closed Account Formal Confirmation Letters
+scenarios:
+  - name: "Dispatch Closed Account Formal Confirmation Letter"
+    flow:
+      - function: "setRequestParams"
+      - post:
+          url: "/api/v1/closed-account-letters"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            customerName: "{{ name }}"
+            letterDate: "{{ date }}"
+            approvingOfficer: "{{ title }}"
+          afterResponse: "printStatus"

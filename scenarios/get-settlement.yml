@@ -1,0 +1,21 @@
+# FinTech Banking Scenarios: Loan & Debt Settlement Underwriting Engine
+scenarios:
+  - name: "Calculate and Authorize Debt Settlement Offer"
+    flow:
+      - function: "setRequestParams"
+      - post:
+          url: "/api/v1/get-settlement"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          json:
+            creditCardUid: "{{ creditCardUid }}"
+            title: "{{ title }}"
+            name: "{{ name }}"
+            settlementType: "{{ settlementType }}"
+            currentBalance: "{{ currentBalance }}"
+            settlementAmount: "{{ settlementAmount }}"
+            settlementPercentage: "{{ settlementPercentage }}"
+            matchPayAmount: "{{ matchPayAmount }}"
+            settlementDate: "{{ date }}"
+          afterResponse: "printStatus"

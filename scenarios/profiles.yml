@@ -1,0 +1,22 @@
+# FinTech Banking Scenarios: Customer Profile Management
+scenarios:
+  - name: "Query and Ingest Customer Profile"
+    flow:
+      - function: "setRequestParams"
+      - get:
+          url: "/api/v1/profiles"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          afterResponse: "printStatus"
+      - think: 1
+      - post:
+          url: "/api/v1/profiles"
+          headers:
+            Content-Type: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          json:
+            name: "{{ name }}"
+            tier: "PLATINUM"
+            requestedCreditLimit: 25000
+          afterResponse: "printStatus"

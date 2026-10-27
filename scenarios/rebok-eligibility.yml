@@ -1,0 +1,11 @@
+# FinTech Banking Scenarios: Line of Credit Re-Booking & Underwriting Eligibility
+scenarios:
+  - name: "Evaluate Re-Booking Eligibility and Underwriting Tier"
+    flow:
+      - function: "setRequestParams"
+      - get:
+          url: "/api/v1/rebok-eligibility"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          afterResponse: "printStatus"

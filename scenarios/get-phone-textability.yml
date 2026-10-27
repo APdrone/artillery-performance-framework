@@ -1,0 +1,11 @@
+# FinTech Banking Scenarios: Phone Number Carrier & SMS Textability Verification
+scenarios:
+  - name: "Validate Phone Textability and DNC Compliance"
+    flow:
+      - function: "setRequestParams"
+      - get:
+          url: "/api/v1/get-phone-textability?phone=%2B14155552671"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.mock"
+          afterResponse: "printStatus"

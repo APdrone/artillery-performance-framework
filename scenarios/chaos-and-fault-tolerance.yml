@@ -1,0 +1,39 @@
+# ==============================================================================
+# Chaos Engineering & Fault Tolerance Verification
+# Injects random latency spikes and transient internal server errors
+# ==============================================================================
+scenarios:
+  - name: "Chaos Injection: Latency Spikes & Transient Errors"
+    flow:
+      - function: "setRequestParams"
+
+      # Step 1: Authenticate
+      - post:
+          url: "/api/v1/auth/token"
+          headers:
+            Content-Type: "application/json"
+          json:
+            clientId: "chaos_runner"
+          capture:
+            - json: "$.accessToken"
+              as: "authToken"
+
+      # Step 2: Query Card with Chaos Mode Injection
+      - get:
+          url: "/api/v1/credit-card/{{ creditCardUid }}"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+          beforeRequest: "injectChaosMode"
+          afterResponse: "printStatus"
+
+      - think: 1
+
+      # Step 3: High-throughput Ledger Query with Potential Chaos
+      - get:
+          url: "/api/v1/transactions-total"
+          headers:
+            Accept: "application/json"
+            Authorization: "Bearer {{ authToken }}"
+          beforeRequest: "injectChaosMode"
+          afterResponse: "printStatus"
